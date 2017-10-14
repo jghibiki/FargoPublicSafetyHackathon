@@ -1,1 +1,1 @@
-# FargoPublicSafetyHackathon
+# FargoPublicSafetyHackathon Thing
