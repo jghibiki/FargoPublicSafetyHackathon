@@ -1,0 +1,28 @@
+Incidents per station (2016):
+	Station 1: 6292
+	Station 2: 3748
+	Station 3: 2585
+	Station 4: 2836
+	Station 5: 4166
+	Station 6: 416
+	Station 7: 2162
+
+Time from alarm going off to dispatch:
+	Avg:     104.63 seconds
+	Median:   81.00 seconds
+
+Time from being dispatched to leaving the station:
+	Avg:      58.41 seconds
+	Median:   60.00 seconds
+
+Time from leaving the station to arriving on site:
+	Avg:     183.91 seconds
+	Median:  174.00 seconds
+
+Time from arrive on site to clear time:
+	Avg:     672.25 seconds
+	Median: 1014.00 seconds
+
+Total time for the event:
+	Avg:     986.72 seconds
+	Median: 1023.00 seconds
