@@ -9,7 +9,8 @@ import config
 class Grid(Drawable):
 
     def __init__(self):
-        w, h = config.grid_offset * config.map_size[0] + config.road_size*2, config.grid_offset * config.map_size[1] + config.road_size*2
+        w = config.grid_offset * config.map_size[0] + config.road_size*2
+        h = config.grid_offset * config.map_size[1] + config.road_size*2
         Drawable.__init__(self, w, h)
 
         self.color = pygame.Color("#141414")

@@ -9,7 +9,8 @@ import config
 
 class Viewport(Drawable, Eventable):
     def __init__(self):
-        w, h = config.grid_offset * config.map_size[0] + config.road_size*2, config.grid_offset * config.map_size[1] + config.road_size*2
+        w = config.grid_offset * config.map_size[0] + config.road_size*2
+        h = config.grid_offset * config.map_size[1] + config.road_size*2
         Drawable.__init__(self, w, h)
 
         self.v_x = 0
@@ -30,16 +31,16 @@ class Viewport(Drawable, Eventable):
 
     def update(self):
         for obj in self.children:
-            obj.render()
+            obj.update()
 
     def render(self):
         for obj in self.children:
-            obj.render()
+            obj._render()
 
 
     def draw(self, parent_surf):
         for obj in self.children:
-            obj.draw(self.surf)
+            obj._draw(self.surf)
         parent_surf.blit(self.surf, (self.v_x, self.v_y))
 
     def handle_event(self, event):
@@ -59,6 +60,20 @@ class Viewport(Drawable, Eventable):
                 mouse_x, mouse_y = event.pos
                 self.v_x = mouse_x + self.mouse_offset_x
                 self.v_y = mouse_y + self.mouse_offset_y
+
+                if self.v_x > config.scroll_padding:
+                    self.v_x = config.scroll_padding
+
+                elif self.v_x < -(self.w + config.scroll_padding - config.window_size[0]):
+                    self.v_x =  -(self.w + config.scroll_padding - config.window_size[0])
+
+                if self.v_y > config.scroll_padding:
+                    self.v_y = config.scroll_padding
+
+                elif self.v_y < -(self.h + config.scroll_padding - config.window_size[1]):
+                    self.v_y = - (self.h + config.scroll_padding - config.window_size[1])
+
                 self.dirty = 1
+
 
 
