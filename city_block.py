@@ -17,7 +17,7 @@ class CityBlock(Drawable):
         pass
 
     def render(self):
-        self.surf.fill(pygame.Color("#000000"))
+        self.surf.fill(pygame.Color("#5C5C5C"))
 
     def draw(self, parent_surf):
         return parent_surf.blit(self.surf, (self.offset_x, self.offset_y))
