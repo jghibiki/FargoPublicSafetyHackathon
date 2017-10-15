@@ -1,6 +1,5 @@
 import csv
 from datetime import datetime
-from difflib import SequenceMatcher
 
 file = open('Tables/FFD info 2016.csv', 'r')
 data = csv.reader(file)

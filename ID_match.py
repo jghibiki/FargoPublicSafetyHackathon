@@ -61,7 +61,7 @@ for row in data2:
 print(len(incidents))
 for incident in tqdm(incidents):
 	bestID = 0
-	bestRatio = 50000000
+	bestRatio = 5000000
 	for key,item in idlist.items():
 		match = levenshtein(item['description'], incident)
 		if (match < bestRatio):
@@ -69,6 +69,6 @@ for incident in tqdm(incidents):
 			bestRatio = match
 			
 	idlist[str(bestID)]['count'] += 1
-	
+
 with open('metadata.json', 'w') as f:
 	json.dump(idlist,f)
