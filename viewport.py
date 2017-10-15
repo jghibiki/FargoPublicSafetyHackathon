@@ -29,6 +29,8 @@ class Viewport(Drawable, Eventable):
             CityBlock(4, 4, 1, 1)
         ]
 
+        self.dirty = 2
+
     def update(self):
         for obj in self.children:
             obj.update()
@@ -73,7 +75,6 @@ class Viewport(Drawable, Eventable):
                 elif self.v_y < -(self.h + config.scroll_padding - config.window_size[1]):
                     self.v_y = - (self.h + config.scroll_padding - config.window_size[1])
 
-                self.dirty = 1
 
 
 
