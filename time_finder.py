@@ -1,7 +1,9 @@
 import csv
 from datetime import datetime
+from difflib import SequenceMatcher
 
-data = csv.reader(open('FFD info 2016.csv', 'r'))
+file = open('Tables/FFD info 2016.csv', 'r')
+data = csv.reader(file)
 next(data)
 	
 sumTime = 0
