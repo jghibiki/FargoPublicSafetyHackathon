@@ -6,16 +6,24 @@ import config
 
 from viewport import Viewport
 from hud import Hud
+from simulation_controller import sim_control
 
 pygame.init()
 pygame.font.init()
 clock = pygame.time.Clock()
 
-windowSurfaceObj = pygame.display.set_mode(config.window_size)
-pygame.display.set_caption("Slim Jitty Citty")
+infoObject = pygame.display.Info()
+if config.native_size:
+    config.window_size = (infoObject.current_w, infoObject.current_h)
+    windowSurfaceObj = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
+else:
+    windowSurfaceObj = pygame.display.set_mode(config.window_size)
+pygame.display.set_caption("Slim Shi'-T Starring Aenemaeub")
 
 vp = Viewport()
 hud = Hud()
+
+sim_control.set_viewport(vp)
 
 
 def quit():
@@ -27,6 +35,8 @@ def start():
     while True:
 
         windowSurfaceObj.fill(pygame.Color("#000000"))
+
+        sim_control.simulation_step()
 
         vp.update()
         hud.update()

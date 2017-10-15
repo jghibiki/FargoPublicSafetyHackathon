@@ -1,4 +1,5 @@
 
+native_size = True
 
 window_size = (1280, 720)
 
