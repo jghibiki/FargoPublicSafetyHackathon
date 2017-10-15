@@ -18,7 +18,7 @@ if config.native_size:
     windowSurfaceObj = pygame.display.set_mode((infoObject.current_w, infoObject.current_h))
 else:
     windowSurfaceObj = pygame.display.set_mode(config.window_size)
-pygame.display.set_caption("Slim Shi'-T Starring Aenemaeub")
+pygame.display.set_caption("Fire Department Response Time and Stress Simulation")
 
 vp = Viewport()
 hud = Hud()
