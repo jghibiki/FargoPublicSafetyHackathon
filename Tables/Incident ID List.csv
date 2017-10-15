@@ -1,0 +1,67 @@
+﻿111,Building fire
+112,Fire in structure
+113,Cooking fire involving the contents of a cooking vessel
+114,Chimney or flue fire originating in and confined to a chimney or flue
+115,Incinerator overload or malfunction
+116,"Fuel burner or boiler, delayed ignition or malfunction"
+117,Commercial compactor fire
+118,Trash or rubbish fire in a structure
+12X,"Fire in mobile property used as a fixed structure, other"
+13X,"Mobile property vehicle fire, other"
+14X,"Natural vegetation fire, other"
+15X,"Outside rubbish fire, other"
+16X,"Special outside fire, other"
+17X,"Cultivated vegetation, crop fire, other"
+100,"Fire, other"
+21X,"Overpressure rupture from steam, other"
+22X,"Overpressure rupture from air or gas, other"
+231,Overpressure rupture of pressure or process vessel chemical reaction
+24X,"Explosion, other"
+251,"Excessive heat, overheat scorch burns with no ignition"
+200,"Overpressure rupture, explosion, overheat, other"
+311,Medical assist
+32X,Emergency medical service incident
+331,"Lock-in, locked vehicle gaining entry to locked area"
+34X,"Search for lost person, other"
+35X,"Extrication, rescue, other"
+36X,"Water and ice-related rescue, other"
+37X,"Electrical rescue, other"
+381,Rescue or EMS standby for hazardous conditions
+300,"Rescue and EMS incident, other"
+41X,Combustible and flammable gas or liquid spills or leaks
+42X,"Toxic chemical condition, other"
+43X,"Radioactive condition, other"
+44X,"Electrical wriring equipment problem, other"
+451,Biological hazard
+46X,"Accident, potential"
+471,"Explosive, bomb removal"
+48X,"Attempted burning, illegal action"
+400,Hazardous condition other
+51X,Person in distress other
+52X,Water problem other
+531,Smoke or odor removal
+54X,Animal problem or rescue other
+55X,"Public service assistance, other"
+561,Unauthorized burning
+571,Cover assignment assist other fire agency
+500,Service call other
+611,Dispatched and canceled en route
+621,Wrong location
+622,No incident found on arrival
+631,Authorized controleld burning
+632,Prescribed fire
+641,Vicinity alarm
+65X,"Steam, other gas mistaken for smoke"
+661,EMS call injured party non-fire service agency
+671,Hazardous material release investigation
+672,Biological hazard investication
+600,"Good intent call, other"
+71X,"Malicious, mischievous false alarm"
+721,Bomb scare no bomb
+73X,System or detector malfunction
+74X,Unintentional transmission of alarm
+751,"Biological hazard, malicious false report"
+700,False alarm or false call
+8XX,Severe weather or natural disaster
+911,Citizens complaint
+900,Special type of incident other
