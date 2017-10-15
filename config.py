@@ -7,7 +7,7 @@ map_size = (20, 20)
 block_size = 50
 road_size = 10
 
-scroll_padding = 75
+scroll_padding = 350
 
 
 
