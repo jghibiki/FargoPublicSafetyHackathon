@@ -70,13 +70,14 @@ class ModeSwitchPanel(Drawable, Eventable):
 
     def handle_event(self, event):
 
-        if event.type ==  MOUSEBUTTONDOWN and event.button is 1 and self.button_build_hotzone.collidepoint(event.pos):
-            sim_control.set_hud_mode(HUD_MODE.build)
-            self.dirty = 1
+        if event.type ==  MOUSEBUTTONDOWN and event.button is 1:
+            if self.button_build_hotzone.collidepoint(event.pos):
+                sim_control.set_hud_mode(HUD_MODE.build)
+                self.dirty = 1
 
-        elif event.type == MOUSEBUTTONDOWN and event.button is 1 and self.button_run_hotzone.collidepoint(event.pos):
-            sim_control.set_hud_mode(HUD_MODE.run)
-            self.dirty = 1
+            elif self.button_run_hotzone.collidepoint(event.pos):
+                sim_control.set_hud_mode(HUD_MODE.run)
+                self.dirty = 1
 
 
 class PlaybackControlPanel(Drawable, Eventable):
@@ -158,19 +159,20 @@ class PlaybackControlPanel(Drawable, Eventable):
             parent_surf.blit(self.surf, (0, 0))
 
     def handle_event(self, event):
-        if event.type == MOUSEBUTTONDOWN and event.button is 1:
+        if sim_control.hud_mode == HUD_MODE.run:
+            if event.type == MOUSEBUTTONDOWN and event.button is 1:
 
-            if self.button_pause_hotzone.collidepoint(event.pos):
-                sim_control.set_playback_mode(PLAYBACK_MODE.pause)
-                self.dirty = 1
+                if self.button_pause_hotzone.collidepoint(event.pos):
+                    sim_control.set_playback_mode(PLAYBACK_MODE.pause)
+                    self.dirty = 1
 
-            elif self.button_play_hotzone.collidepoint(event.pos):
-                sim_control.set_playback_mode(PLAYBACK_MODE.play)
-                self.dirty = 1
+                elif self.button_play_hotzone.collidepoint(event.pos):
+                    sim_control.set_playback_mode(PLAYBACK_MODE.play)
+                    self.dirty = 1
 
-            elif self.button_play_x2_hotzone.collidepoint(event.pos):
-                sim_control.set_playback_mode(PLAYBACK_MODE.play_x2)
-                self.dirty = 1
+                elif self.button_play_x2_hotzone.collidepoint(event.pos):
+                    sim_control.set_playback_mode(PLAYBACK_MODE.play_x2)
+                    self.dirty = 1
 
 
 class EditorPanel(Drawable, Eventable):
@@ -368,7 +370,9 @@ class Hud(Drawable, Eventable):
 
 
     def handle_event(self, event):
+        suppress = False
         for obj in self.children:
             if isinstance(obj, Eventable):
-                obj.handle_event(event)
+                suppress = obj.handle_event(event) or suppress
+        return suppress
 

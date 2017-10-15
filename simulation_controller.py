@@ -1,4 +1,13 @@
+import math
 
+from pygame.locals import *
+
+from eventable import Eventable
+from residential_zone import ResidentialZone
+from industrial_zone import IndustrialZone
+from commercial_zone import CommercialZone
+from fire_station import FireStation
+import config
 
 class HUD_MODE:
     build = 1
@@ -17,7 +26,7 @@ class BUILD_MODE:
     fire_station = 5
     remove = 6
 
-class SimulationControl:
+class SimulationControl(Eventable):
 
     def __init__(self):
 
@@ -74,6 +83,36 @@ class SimulationControl:
         if self.playback_mode == PLAYBACK_MODE.play or self.playback_mode == PLAYBACK_MODE.play_x2:
             pass # perform a simulation step
             print("Simulation step")
+
+    def handle_event(self, event):
+        if event.type == MOUSEBUTTONDOWN:
+            if event.button is 1:
+                pos = event.pos
+
+                reprojected = self.vp.project_coord_into_vp(pos)
+
+                if self.build_mode == BUILD_MODE.residential:
+                    self.vp.children.append(
+                            ResidentialZone(
+                                math.floor(reprojected[0] / config.grid_offset),
+                                math.floor(reprojected[1] / config.grid_offset)))
+                elif self.build_mode == BUILD_MODE.commercial:
+                    self.vp.children.append(
+                            CommercialZone(
+                                math.floor(reprojected[0] / config.grid_offset),
+                                math.floor(reprojected[1] / config.grid_offset)))
+                elif self.build_mode == BUILD_MODE.industrial:
+                    self.vp.children.append(
+                            IndustrialZone(
+                                math.floor(reprojected[0] / config.grid_offset),
+                                math.floor(reprojected[1] / config.grid_offset)))
+
+                elif self.build_mode == BUILD_MODE.fire_station:
+                    self.vp.children.append(
+                            FireStation(
+                                math.floor(reprojected[0] / config.grid_offset),
+                                math.floor(reprojected[1] / config.grid_offset)))
+
 
 
 sim_control = SimulationControl()

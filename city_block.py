@@ -5,7 +5,7 @@ import config
 
 class CityBlock(Drawable):
 
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width=1, height=1):
         Drawable.__init__(Drawable, width * config.block_size, height * config.block_size)
         self.x = x
         self.y = y
@@ -13,11 +13,13 @@ class CityBlock(Drawable):
         self.offset_x = self.__calculate_offset_coord(x)
         self.offset_y = self.__calculate_offset_coord(y)
 
+        self.color = pygame.Color("#5C5C5C")
+
     def update(self):
         pass
 
     def render(self):
-        self.surf.fill(pygame.Color("#5C5C5C"))
+        self.surf.fill(self.color)
 
     def draw(self, parent_surf):
         return parent_surf.blit(self.surf, (self.offset_x, self.offset_y))
