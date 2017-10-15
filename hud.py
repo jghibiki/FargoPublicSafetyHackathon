@@ -195,7 +195,7 @@ class PlaybackControlPanel(Drawable, Eventable):
 
 class EditorPanel(Drawable, Eventable):
     def __init__(self):
-        Drawable.__init__(self, 200, 320)
+        Drawable.__init__(self, 265, 670)
 
         self.font = pygame.font.Font(pygame.font.get_default_font(), 20)
         self.bg_color = pygame.Color("#242424")
@@ -286,26 +286,81 @@ class EditorPanel(Drawable, Eventable):
                 text_surf_rect.h + padding)
 
 
-        # draw road text
+        # draw road north text
         padding = 15
         coords = (15, 215)
-        text_surf = self.font.render("Road", True, self.fg_color)
+        text_surf = self.font.render("Road (North)", True, self.fg_color)
         text_surf_rect = text_surf.get_rect()
-        if sim_control.build_mode == BUILD_MODE.road:
+        if sim_control.build_mode == BUILD_MODE.road_north:
             self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
         else:
             self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
         self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
 
-        self.button_road_hotzone = pygame.Rect(
+        self.button_road_north_hotzone = pygame.Rect(
                 coords[0],
                 ( config.window_size[1] - self.h ) + coords[1],
                 text_surf_rect.w + padding*2,
                 text_surf_rect.h + padding)
 
-        # draw remove text
+
+        # draw road south text
         padding = 15
         coords = (15, 265)
+        text_surf = self.font.render("Road (South)", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.road_south:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_road_south_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw road east text
+        padding = 15
+        coords = (15, 315)
+        text_surf = self.font.render("Road (East)", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.road_east:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_road_east_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw road west text
+        padding = 15
+        coords = (15, 365)
+        text_surf = self.font.render("Road (West)", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.road_west:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_road_west_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw remove text
+        padding = 15
+        coords = (15, 415)
         text_surf = self.font.render("Remove", True, self.fg_color)
         text_surf_rect = text_surf.get_rect()
         if sim_control.build_mode == BUILD_MODE.remove:
@@ -315,6 +370,77 @@ class EditorPanel(Drawable, Eventable):
         self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
 
         self.button_remove_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+        # draw road west text
+        padding = 15
+        coords = (15, 465)
+        text_surf = self.font.render("Remove Road North", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.remove_road_north:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_remove_road_north_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw road west text
+        padding = 15
+        coords = (15, 515)
+        text_surf = self.font.render("Remove Road South", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.remove_road_south:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_remove_road_south_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw road west text
+        padding = 15
+        coords = (15, 565)
+        text_surf = self.font.render("Remove Road East", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.remove_road_east:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_remove_road_east_hotzone = pygame.Rect(
+                coords[0],
+                ( config.window_size[1] - self.h ) + coords[1],
+                text_surf_rect.w + padding*2,
+                text_surf_rect.h + padding)
+
+
+        # draw road west text
+        padding = 15
+        coords = (15, 615)
+        text_surf = self.font.render("Remove Road West", True, self.fg_color)
+        text_surf_rect = text_surf.get_rect()
+        if sim_control.build_mode == BUILD_MODE.remove_road_west:
+            self.surf.fill(self.button_color_alt, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        else:
+            self.surf.fill(self.button_color, rect=(coords[0], coords[1], text_surf_rect.w + padding*2, text_surf_rect.h + padding))
+        self.surf.blit(text_surf, (coords[0] + padding, coords[1] + padding/2))
+
+        self.button_remove_road_west_hotzone = pygame.Rect(
                 coords[0],
                 ( config.window_size[1] - self.h ) + coords[1],
                 text_surf_rect.w + padding*2,
@@ -348,8 +474,43 @@ class EditorPanel(Drawable, Eventable):
                     self.dirty = 1
                     return True
 
-                elif self.button_road_hotzone.collidepoint(event.pos):
-                    sim_control.set_build_mode(BUILD_MODE.road)
+                elif self.button_road_north_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.road_north)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_road_south_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.road_south)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_road_east_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.road_east)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_road_west_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.road_west)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_remove_road_north_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.remove_road_north)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_remove_road_south_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.remove_road_south)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_remove_road_east_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.remove_road_east)
+                    self.dirty = 1
+                    return True
+
+                elif self.button_remove_road_west_hotzone.collidepoint(event.pos):
+                    sim_control.set_build_mode(BUILD_MODE.remove_road_west)
                     self.dirty = 1
                     return True
 
