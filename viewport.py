@@ -75,6 +75,9 @@ class Viewport(Drawable, Eventable):
                 elif self.v_y < -(self.h + config.scroll_padding - config.window_size[1]):
                     self.v_y = - (self.h + config.scroll_padding - config.window_size[1])
 
+    def project_coord_into_vp(self, coords):
+        return ( coords[0] + self.v_x, coords[1] + self.v_y )
+
 
 
 

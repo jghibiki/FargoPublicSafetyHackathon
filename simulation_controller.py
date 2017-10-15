@@ -26,6 +26,8 @@ class SimulationControl:
         self.playback_mode = PLAYBACK_MODE.pause
         self.build_mode = BUILD_MODE.residential
 
+        self.vp = None
+
         self.watchers = {
             "hud_mode_change": [],
             "playback_mode_change": [],
@@ -45,6 +47,9 @@ class SimulationControl:
         self.build_mode = mode
         self.notify_event("build_mode_change")
 
+    def set_viewport(self, vp):
+        self.vp = vp
+
     def register_watcher(self, event_type, instance):
         if event_type in self.watchers and instance not in self.watchers[event_type]:
             self.watchers[event_type].append(instance)
@@ -58,11 +63,17 @@ class SimulationControl:
         if self.last_playback_mode != self.playback_mode:
             if self.playback_mode == PLAYBACK_MODE.pause:
                 pass # this is where we should pause any timers
+                print("Pause")
 
-            elif self.playback_mode == PLAYBACK_MODE.play:
+            elif self.playback_mode == PLAYBACK_MODE.play or self.playback_mode == PLAYBACK_MODE.play_x2:
                 pass # this is where we should resume any paused timers
+                print("Play X2")
 
-        else:
+        self.last_playback_mode = self.playback_mode
+
+        if self.playback_mode == PLAYBACK_MODE.play or self.playback_mode == PLAYBACK_MODE.play_x2:
             pass # perform a simulation step
+            print("Simulation step")
+
 
 sim_control = SimulationControl()
