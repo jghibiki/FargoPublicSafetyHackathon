@@ -1,4 +1,5 @@
 import csv
+import json
 import numpy as np
 from tqdm import tqdm
 #from difflib import SequenceMatcher
@@ -69,4 +70,5 @@ for incident in tqdm(incidents):
 			
 	idlist[str(bestID)]['count'] += 1
 	
-print(list(filter(lambda e:e['count'] > 0, idlist.values())))
+with open('metadata.json', 'w') as f:
+	json.dump(idlist,f)
