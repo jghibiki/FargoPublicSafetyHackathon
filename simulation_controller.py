@@ -1,4 +1,6 @@
 import math
+import random
+import datetime
 
 import pygame
 from pygame.locals import *
@@ -6,12 +8,15 @@ from pygame.locals import *
 from eventable import Eventable
 from drawable import Drawable
 
+from incident_generator import IncidentGenerator
+
 from city_block import CityBlock
 from residential_zone import ResidentialZone
 from industrial_zone import IndustrialZone
 from commercial_zone import CommercialZone
 from fire_station import FireStation
 from road import Road, ROAD_DIRECTION, NorthRoad, SouthRoad, WestRoad, EastRoad
+from incident import Incident
 
 import config
 
@@ -57,10 +62,17 @@ class SimulationControl(Drawable, Eventable):
         self.playback_mode = PLAYBACK_MODE.pause
         self.build_mode = BUILD_MODE.residential
 
+        self.incident_spawn_timer = None
+        self.incident_spawn_timeout_length = 10
+
+        self.incident_generator = IncidentGenerator()
+
         self.vp = None
 
         self.children= [
         ]
+
+        self.incidents = []
 
         self.watchers = {
             "hud_mode_change": [],
@@ -107,7 +119,33 @@ class SimulationControl(Drawable, Eventable):
 
         if self.playback_mode == PLAYBACK_MODE.play or self.playback_mode == PLAYBACK_MODE.play_x2:
             pass # perform a simulation step
-            print("Simulation step")
+
+            if self.incident_spawn_timer is None:
+                self.incident_spawn_timer = datetime.datetime.now()
+
+            elapsed = datetime.datetime.now() - self.incident_spawn_timer
+            if elapsed.seconds > self.incident_spawn_timeout_length:
+
+                # spawn incident
+
+                open_blocks = [ b for b in self.children if isinstance(b, CityBlock) ]
+                for c in open_blocks:
+                    for i in self.incidents:
+                        if i.x == c.x and i.y == c.y:
+                            open_blocks.remove(c)
+                            break
+
+                selected_block = random.choice(open_blocks)
+
+                incident_metadata = self.incident_generator.generate()
+                print(incident_metadata)
+                new_incident = Incident(selected_block.x, selected_block.y, incident_metadata)
+
+                self.children.append(new_incident)
+                self.incidents.append(new_incident)
+
+
+                self.incident_spawn_timer = datetime.datetime.now()
 
     def child_at(self, coords, dtype=None):
         for c in self.children:
@@ -152,17 +190,21 @@ class SimulationControl(Drawable, Eventable):
                         elif self.build_mode == BUILD_MODE.road_north:
                             if not self.child_at(block_coords, NorthRoad) and not self.child_at((block_coords[0], block_coords[1]-1), SouthRoad):
                                 self.children.append( NorthRoad(*block_coords) )
+                                self.updates = True
 
                         elif self.build_mode == BUILD_MODE.road_south:
                             if not self.child_at(block_coords, SouthRoad) and not self.child_at((block_coords[0], block_coords[1]+1), NorthRoad):
                                 self.children.append( SouthRoad(*block_coords) )
+                                self.updates = True
 
                         elif self.build_mode == BUILD_MODE.road_east :
                             if not self.child_at(block_coords, EastRoad) and not self.child_at((block_coords[0]-1, block_coords[1]), WestRoad):
                                 self.children.append( EastRoad(*block_coords) )
+                                self.updates = True
 
                         elif self.build_mode == BUILD_MODE.road_west:
                             if not self.child_at(block_coords, WestRoad) and not self.child_at((block_coords[0]+1, block_coords[1]), EastRoad):
+                                self.updates = True
                                 self.children.append( WestRoad(*block_coords) )
 
                         elif self.build_mode == BUILD_MODE.remove:
@@ -210,7 +252,7 @@ class SimulationControl(Drawable, Eventable):
 
     def update(self):
         self.child_updates = False
-        for c in self.children:
+        for c in sorted(self.children, key=lambda e:e.draw_priority):
             self.child_updates = c.update() or self.child_updates
 
         return self.child_updates or self.updates
@@ -219,14 +261,14 @@ class SimulationControl(Drawable, Eventable):
         if self.updates or self.child_updates:
             self.surf.fill(pygame.Color(0, 0, 0, 0))
 
-        for c in self.children:
+        for c in sorted(self.children, key=lambda e:e.draw_priority):
             if self.updates or self.child_updates:
                 c.render()
             else:
                 c._render()
 
     def draw(self, parent_surf):
-        for c in self.children:
+        for c in sorted(self.children, key=lambda e:e.draw_priority):
             if self.updates or self.child_updates:
                 c.draw(self.surf)
             else:

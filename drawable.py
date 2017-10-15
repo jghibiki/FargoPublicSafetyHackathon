@@ -9,6 +9,8 @@ class Drawable:
 
         self.dirty = dirty
 
+        self.draw_priority = 0
+
 
     def update(self):
         raise Exception("{0} must override {0}.update()".format(type(self).__name__))
