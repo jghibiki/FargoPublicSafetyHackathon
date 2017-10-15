@@ -55,11 +55,9 @@ def start():
                 if event.key == K_ESCAPE:
                     quit()
 
-            suppress = vp.handle_event(event)
+            suppress = hud.handle_event(event)
             if not suppress:
-                suppress = hud.handle_event(event)
-            if not suppress:
-                suppress = sim_control.handle_event(event)
+                suppress = vp.handle_event(event)
 
 
         pygame.display.update()

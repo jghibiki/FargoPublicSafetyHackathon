@@ -24,6 +24,8 @@ class ModeSwitchPanel(Drawable, Eventable):
 
         sim_control.register_watcher("hud_mode_change", self)
 
+        self.panel_mask = pygame.Rect(config.window_size[0] - self.w, 0, self.w, self.h)
+
     def update(self):
         pass
 
@@ -74,10 +76,17 @@ class ModeSwitchPanel(Drawable, Eventable):
             if self.button_build_hotzone.collidepoint(event.pos):
                 sim_control.set_hud_mode(HUD_MODE.build)
                 self.dirty = 1
+                return True
 
             elif self.button_run_hotzone.collidepoint(event.pos):
                 sim_control.set_hud_mode(HUD_MODE.run)
                 self.dirty = 1
+                return True
+
+            elif self.panel_mask.collidepoint(event.pos):
+                return True
+
+        return False
 
 
 class PlaybackControlPanel(Drawable, Eventable):
@@ -94,6 +103,8 @@ class PlaybackControlPanel(Drawable, Eventable):
         self.button_play_hotzone = None
         self.button_pause_hotzone = None
         self.button_play_x2_hotzone = None
+
+        self.panel_mask = pygame.Rect(0, 0, self.w, self.h)
 
         sim_control.register_watcher("hud_mode_change", self)
 
@@ -165,14 +176,21 @@ class PlaybackControlPanel(Drawable, Eventable):
                 if self.button_pause_hotzone.collidepoint(event.pos):
                     sim_control.set_playback_mode(PLAYBACK_MODE.pause)
                     self.dirty = 1
+                    return True
 
                 elif self.button_play_hotzone.collidepoint(event.pos):
                     sim_control.set_playback_mode(PLAYBACK_MODE.play)
                     self.dirty = 1
+                    return True
 
                 elif self.button_play_x2_hotzone.collidepoint(event.pos):
                     sim_control.set_playback_mode(PLAYBACK_MODE.play_x2)
                     self.dirty = 1
+                    return True
+
+                elif self.panel_mask.collidepoint(event.pos):
+                    return True
+        return False
 
 
 class EditorPanel(Drawable, Eventable):
@@ -188,6 +206,8 @@ class EditorPanel(Drawable, Eventable):
         self.button_play_hotzone = None
         self.button_pause_hotzone = None
         self.button_play_x2_hotzone = None
+
+        self.panel_mask = pygame.Rect(0, config.window_size[1] - self.h, self.w, self.h)
 
         sim_control.register_watcher("hud_mode_change", self)
 
@@ -311,26 +331,34 @@ class EditorPanel(Drawable, Eventable):
                 if self.button_residential_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.residential)
                     self.dirty = 1
+                    return True
 
                 elif self.button_commercial_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.commercial)
                     self.dirty = 1
+                    return True
 
                 elif self.button_industrial_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.industrial)
                     self.dirty = 1
+                    return True
 
                 elif self.button_fire_station_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.fire_station)
                     self.dirty = 1
+                    return True
 
                 elif self.button_road_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.road)
                     self.dirty = 1
+                    return True
 
                 elif self.button_remove_hotzone.collidepoint(event.pos):
                     sim_control.set_build_mode(BUILD_MODE.remove)
                     self.dirty = 1
+                    return True
+                elif self.panel_mask.collidepoint(event.pos):
+                    return True # handle missing button but hitting panel
 
 
 

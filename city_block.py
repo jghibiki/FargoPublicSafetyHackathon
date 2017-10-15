@@ -5,15 +5,15 @@ import config
 
 class CityBlock(Drawable):
 
-    def __init__(self, x, y, width=1, height=1):
-        Drawable.__init__(Drawable, width * config.block_size, height * config.block_size)
+    def __init__(self, x, y, width=1, height=1, color="#5C5C5C"):
+        Drawable.__init__(self, width * config.block_size, height * config.block_size)
         self.x = x
         self.y = y
 
         self.offset_x = self.__calculate_offset_coord(x)
         self.offset_y = self.__calculate_offset_coord(y)
 
-        self.color = pygame.Color("#5C5C5C")
+        self.color = pygame.Color(color)
 
     def update(self):
         pass
